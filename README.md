@@ -49,7 +49,7 @@ token
 
 Like a user (swipe right):
 
-```
+```elixir
 token
 |> ExTinder.like("someuserid")
 ```
