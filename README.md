@@ -42,7 +42,8 @@ Get nearby user ids:
 
 ```elixir
 token
-|> ExTinder.get_nearby_users[:results]
+|> ExTinder.get_nearby_users
+|> Map.fetch(:results)
 |> Enum.map(fn(r) -> r[:_id])
 ```
 
