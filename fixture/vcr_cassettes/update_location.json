@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "{\"lat\":39,\"lon\":75}",
+      "headers": {
+        "Authentication": "Token token=48f36ffd-55ec-44e1-809a-5ce23b089a43",
+        "Content-Type": "application/json; charset=utf-8",
+        "User-Agent": "Tinder/3.0.2 (iPhone; iOS 7.0.4; Scale/2.00)",
+        "X-Auth-Token": "48f36ffd-55ec-44e1-809a-5ce23b089a43"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.gotinder.com/user/ping"
+    },
+    "response": {
+      "body": "{\"status\":200}",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sun, 24 Jan 2016 11:51:10 GMT",
+        "Content-Length": "14",
+        "Connection": "keep-alive"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
