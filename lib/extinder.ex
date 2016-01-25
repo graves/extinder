@@ -39,8 +39,8 @@ defmodule ExTinder do
 
   ## Examples
 
-      token |>
-      ExTinder.dislike("someonesuserid")
+      token
+      |> ExTinder.dislike("someonesuserid")
   """
   defdelegate dislike(token, user_id), to: ExTinder.Client
 
@@ -51,8 +51,8 @@ defmodule ExTinder do
 
   ## Examples
 
-      token |>
-      ExTinder.fetch_updates
+      token
+      |> ExTinder.fetch_updates
   """
   defdelegate fetch_updates(token), to: ExTinder.Client
 
@@ -64,8 +64,8 @@ defmodule ExTinder do
   ## Examples
 
       {:ok, date} = "2015-06-24T04:50:34Z" |> Timex.DateFormat.parse("{ISOz}")
-      token |>
-      ExTinder.fetch_updates(date)
+      token
+      |> ExTinder.fetch_updates(date)
   """
   defdelegate fetch_updates(token, time), to: ExTinder.Client
 
@@ -76,8 +76,8 @@ defmodule ExTinder do
 
   ## Examples
 
-      token |>
-      ExTinder.get_nearby_users
+      token
+      |> ExTinder.get_nearby_users
   """
   defdelegate get_nearby_users(token), to: ExTinder.Client
 
@@ -88,8 +88,8 @@ defmodule ExTinder do
 
   ## Examples
 
-      token |>
-      ExTinder.info_for_user("someonesuserid")
+      token
+      |> ExTinder.info_for_user("someonesuserid")
   """
   defdelegate info_for_user(token, user_id), to: ExTinder.Client
 
@@ -100,8 +100,8 @@ defmodule ExTinder do
 
   ## Examples
 
-      token |>
-      ExTinder.like("someonesuserid")
+      token
+      |> ExTinder.like("someonesuserid")
   """
   defdelegate like(token, user_id), to: ExTinder.Client
 
@@ -112,8 +112,8 @@ defmodule ExTinder do
 
   ## Examples
 
-      token |>
-      ExTinder.profile
+      token
+      |> ExTinder.profile
   """
   defdelegate profile(token), to: ExTinder.Client
 
@@ -124,8 +124,8 @@ defmodule ExTinder do
 
   ## Examples
 
-      token |>
-      ExTinder.send_message("userid", "dang girl, is yr father a lobster?")
+      token
+      |> ExTinder.send_message("userid", "dang girl, is yr father a lobster?")
   """
   defdelegate send_message(token, user_id, message), to: ExTinder.Client
 
@@ -136,8 +136,8 @@ defmodule ExTinder do
 
   ## Examples
 
-      token |>
-      ExTinder.update_location(39, -75)
+      token
+      |> ExTinder.update_location(39, -75)
   """
   defdelegate update_location(token, latitude, longitude), to: ExTinder.Client
 
