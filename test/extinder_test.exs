@@ -6,7 +6,7 @@ defmodule ExTinderTest do
 
   @facebook_id "629450774"
   @facebook_token "CAAGm0PX4ZCpsBAND1aPoNFyeJq4BlY0eZAlnIWTKrQfTyT5JACJPjPO7XkwezUCLQR08Ok2erXcGhgbB0aNlHZBu6b0v3C8F2J33TPaqtDzOz4xmsPC6wic3uiXmZC4IimJuZAML1ZCZAkzN1QE0RhqyujNxVw226ebZCyKlmSphWBZAKmlMfO12yPVYY6fjfQMD2tvGs9ANTdAZDZD"
-  @token ExTinder.authenticate(@facebook_id, @facebook_token)
+  @good_token "abac0ed9-dc21-4e6d-970d-6f09540c6ba2"
 
   setup_all do
     HTTPoison.start
@@ -22,14 +22,14 @@ defmodule ExTinderTest do
   test "dislike swipes left" do
     use_cassette("dislike") do
       nearby_user_id = "541ef305c601707603b21596"
-      response = @token |> ExTinder.dislike(nearby_user_id)
+      response = @good_token |> ExTinder.dislike(nearby_user_id)
       assert response.status == 200
     end
   end
 
   test "fetch_updates using only token returns updates" do
     use_cassette("fetch_updates\\1") do
-      response = @token |> ExTinder.fetch_updates
+      response = @good_token |> ExTinder.fetch_updates
       assert response.matches
     end
   end
@@ -37,22 +37,22 @@ defmodule ExTinderTest do
   test "fetch_updates using token and time returns updates" do
     use_cassette("fetch_updates\\2") do
       time = Date.local
-      response = @token |> ExTinder.fetch_updates(time)
+      response = @good_token |> ExTinder.fetch_updates(time)
       assert response.matches
     end
   end
 
   test "get_nearby_users gets users who are nearby" do
     use_cassette("get_nearby_users") do
-      count = @token |> ExTinder.get_nearby_users |> Enum.count
-      assert count == 12
+      count = @good_token |> ExTinder.get_nearby_users |> Enum.count
+      assert count == 15
     end
   end
 
   test "info_for_user gets a users profile" do
     use_cassette("info_for_user") do
       user_id = "511082f058585a5e2c000301"
-      response = @token |> ExTinder.info_for_user(user_id)
+      response = @good_token |> ExTinder.info_for_user(user_id)
       assert response._id == user_id
     end
   end
@@ -60,14 +60,14 @@ defmodule ExTinderTest do
   test "like swipes right" do
     use_cassette("like") do
       user_id = "511082f058585a5e2c000301"
-      response = @token |> ExTinder.like(user_id)
+      response = @good_token |> ExTinder.like(user_id)
       assert response.likes_remaining
     end
   end
 
   test "profile gets own profile" do
     use_cassette("profile") do
-      response = @token |> ExTinder.profile
+      response = @good_token |> ExTinder.profile
       assert response._id
     end
   end
@@ -80,7 +80,7 @@ defmodule ExTinderTest do
     use_cassette("update_location") do
       latitude = 39
       longitude = 75
-      response = @token |> ExTinder.update_location(latitude, longitude)
+      response = @good_token |> ExTinder.update_location(latitude, longitude)
       assert response.status == 200
     end
   end
