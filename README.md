@@ -44,7 +44,7 @@ Get nearby user ids:
 token
 |> ExTinder.get_nearby_users
 |> Map.fetch(:results)
-|> Enum.map(fn(r) -> r[:_id])
+|> Enum.map(fn(r) -> r[:_id] end)
 ```
 
 Like a user (swipe right):
@@ -68,23 +68,23 @@ You can use ExTinder's request function to query the API for functionality not y
 Unauthenticated GET request:
 
 ```elixir
-ExTinder.request({:get, "secret/route"})
+ExTinder.Client.request({:get, "secret/route"})
 ```
 
 Authenticated GET request:
 
 ```elixir
-ExTinder.request({:get, "secret/route", "myoauthtoken"})
+ExTinder.Client.request({:get, "secret/route", "myoauthtoken"})
 ```
 
 Unauthenticated POST request:
 
 ```elixir
-ExTinder.request({:post, "secret/route", %{my: body}})
+ExTinder.Client.request({:post, "secret/route", %{my: body}})
 ```
 
 Authenticated POST request:
 
 ```elixir
-ExTinder.request({:post, "secret/route", %{my: body}, "myoauthtoken"})
+ExTinder.Client.request({:post, "secret/route", %{my: body}, "myoauthtoken"})
 ```

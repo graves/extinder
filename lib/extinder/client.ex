@@ -3,6 +3,7 @@ defmodule ExTinder.Client do
   Provide interface for common functionalities of the Tinder API.
   """
 
+  import ExTinder.Base
   alias ExTinder.DateUtil, as: DateUtil
   use Timex
 
@@ -11,15 +12,17 @@ defmodule ExTinder.Client do
   """
   def authenticate(facebook_id, facebook_token) do
     data = %{facebook_id: facebook_id, facebook_token: facebook_token}
-    {:ok, response} = ExTinder.request({:post, "auth", data})
-    response.body[:token]
+
+    request({:post, "auth", data})
+    |> ExTinder.Parser.parse_auth_token
   end
 
   @doc """
   Dislike a user (swipe left.)
   """
   def dislike(token, user_id) do
-    ExTinder.request({:get, "pass/#{user_id}", token})
+    request({:get, "pass/#{user_id}", token})
+    |> ExTinder.Parser.parse_simple_response
   end
 
   @doc """
@@ -28,7 +31,9 @@ defmodule ExTinder.Client do
   def fetch_updates(token) do
     {:ok, time} = DateUtil.format(Date.local)
     data = %{last_activity_date: time}
-    ExTinder.request({:post, "updates", data, token})
+
+    request({:post, "updates", data, token})
+    |> ExTinder.Parser.parse_updates
   end
 
   @doc """
@@ -37,35 +42,41 @@ defmodule ExTinder.Client do
   def fetch_updates(token, time) do
     {:ok, time} = DateUtil.format(time)
     data = %{last_activity_date: time}
-    ExTinder.request({:post, "updates", data, token})
+
+    request({:post, "updates", data, token})
+    |> ExTinder.Parser.parse_updates
   end
 
   @doc """
   Get list of recommended users.
   """
   def get_nearby_users(token) do
-    ExTinder.request({:get, "user/recs", token})
+    request({:get, "user/recs", token})
+    |> ExTinder.Parser.parse_nearby_users
   end
 
   @doc """
   Get a users profile.
   """
   def info_for_user(token, user_id) do
-    ExTinder.request({:get, "user/#{user_id}", token})
+    request({:get, "user/#{user_id}", token})
+    |> ExTinder.Parser.parse_user
   end
 
   @doc """
   Like a user (swipe right.)
   """
   def like(token, user_id) do
-    ExTinder.request({:get, "like/#{user_id}", token})
+    request({:get, "like/#{user_id}", token})
+    |> ExTinder.Parser.parse_simple_response
   end
 
   @doc """
   Fetch your own profile.
   """
   def profile(token) do
-    ExTinder.request({:get, "profile", token})
+    request({:get, "profile", token})
+    |> ExTinder.Parser.parse_profile
   end
 
   @doc """
@@ -73,7 +84,9 @@ defmodule ExTinder.Client do
   """
   def send_message(token, user_id, message) do
     data = %{message: message}
-    ExTinder.request({:post, "user/matches/#{user_id}", data, token})
+
+    request({:post, "user/matches/#{user_id}", data, token})
+    |> ExTinder.Parser.parse_simple_response
   end
 
   @doc """
@@ -81,6 +94,8 @@ defmodule ExTinder.Client do
   """
   def update_location(token, latitude, longitude) do
     data = %{lat: latitude, lon: longitude}
-    ExTinder.request({:post, "user/ping", data, token})
+
+    request({:post, "user/ping", data, token})
+    |> ExTinder.Parser.parse_simple_response
   end
 end
