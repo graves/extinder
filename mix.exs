@@ -4,7 +4,7 @@ defmodule ExTinder.Mixfile do
   def project do
     [
      app: :extinder,
-     version: "0.0.1",
+     version: "0.1.0",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -32,7 +32,8 @@ defmodule ExTinder.Mixfile do
       {:exjsx, "~> 3.2.0"},
       {:timex, "~> 1.0.0"},
       {:exvcr, "~> 0.7", only: :test},
-      {:dialyxir, "~> 0.3", only: [:dev]}
+      {:dialyxir, "~> 0.3", only: [:dev]},
+      {:hound, "~> 0.8"}
     ]
   end
 end

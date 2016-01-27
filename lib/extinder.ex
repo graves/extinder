@@ -7,7 +7,6 @@ defmodule ExTinder do
   """
 
   use Application
-  use HTTPoison.Base
 
   @doc false
   def start(_type, _args) do
@@ -140,85 +139,4 @@ defmodule ExTinder do
       |> ExTinder.update_location(39, -75)
   """
   defdelegate update_location(token, latitude, longitude), to: ExTinder.Client
-
-  # -------------- HTTPoison.Base Methods ------------------------
-
-  @doc false
-  def process_url(endpoint) do
-    "https://api.gotinder.com/" <> endpoint
-  end
-
-  @doc false
-  def process_request_headers(headers) when is_map(headers) do
-    headers = Map.merge(default_headers, headers)
-    Enum.into(headers, [])
-  end
-
-  @doc false
-  def process_request_headers(headers), do: Enum.into(headers, [])
-
-  @doc false
-  def process_response_body(body) do
-    JSX.decode!(body, [{:labels, :atom}])
-  end
-
-  @doc """
-  Sends unauthenticated GET request to a Tinder endpoint.
-
-  ## Examples
-      ExTinder.request({:get, "secret/route"})
-  """
-  def request({:get, endpoint}) do
-    ExTinder.get(endpoint)
-  end
-
-  @doc """
-  Sends authenticated GET request to a Tinder endpoint.
-
-  ## Examples
-      ExTinder.request({:get, "secret/route", "secrettoken"})
-  """
-  def request({:get, endpoint, token}) do
-    ExTinder.get(endpoint, auth_headers(token))
-  end
-
-  @doc """
-  Sends unauthenticated POST request to a Tinder endpoint. The request
-  body should be a Map.
-
-  ## Examples
-      ExTinder.request({:post, "secret/route", %{csrf: "token"}})
-  """
-  def request({:post, endpoint, body}) do
-    ExTinder.post(endpoint, JSX.encode!(body), default_headers)
-  end
-
-  @doc """
-  Sends authenticated POST request to a Tinder endpoint. The request
-  body should be a Map.
-
-  ## Examples
-      ExTinder.request({:post, "secret/route", %{my: "bod"}, "mytoken"})
-  """
-  def request({:post, endpoint, body, token}) do
-    ExTinder.post(endpoint, JSX.encode!(body), auth_headers(token))
-  end
-
-  # -------------- Default and Authenticated Headers -------------
-
-  @spec default_headers :: map
-  defp default_headers do
-    %{
-      "Content-Type" => "application/json; charset=utf-8",
-      "User-Agent" => "Tinder/3.0.2 (iPhone; iOS 7.0.4; Scale/2.00)"
-     }
-  end
-
-  @spec auth_headers(String.t) :: map
-  defp auth_headers(token) do
-    %{
-      "Authentication" => "Token token=#{token}",
-      "X-Auth-Token" => token
-     }
-  end
 end

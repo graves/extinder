@@ -3,10 +3,10 @@
     "request": {
       "body": "{\"lat\":39,\"lon\":75}",
       "headers": {
-        "Authentication": "Token token=48f36ffd-55ec-44e1-809a-5ce23b089a43",
+        "Authentication": "Token token=abac0ed9-dc21-4e6d-970d-6f09540c6ba2",
         "Content-Type": "application/json; charset=utf-8",
         "User-Agent": "Tinder/3.0.2 (iPhone; iOS 7.0.4; Scale/2.00)",
-        "X-Auth-Token": "48f36ffd-55ec-44e1-809a-5ce23b089a43"
+        "X-Auth-Token": "abac0ed9-dc21-4e6d-970d-6f09540c6ba2"
       },
       "method": "post",
       "options": [],
@@ -17,7 +17,7 @@
       "body": "{\"status\":200}",
       "headers": {
         "Content-Type": "application/json; charset=utf-8",
-        "Date": "Sun, 24 Jan 2016 11:51:10 GMT",
+        "Date": "Tue, 26 Jan 2016 19:47:11 GMT",
         "Content-Length": "14",
         "Connection": "keep-alive"
       },
