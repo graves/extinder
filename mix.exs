@@ -32,7 +32,8 @@ defmodule ExTinder.Mixfile do
       {:exjsx, "~> 3.2.0"},
       {:timex, "~> 1.0.0"},
       {:exvcr, "~> 0.7", only: :test},
-      {:dialyxir, "~> 0.3", only: [:dev]}
+      {:dialyxir, "~> 0.3", only: [:dev]},
+      {:hound, "~> 0.8"}
     ]
   end
 end

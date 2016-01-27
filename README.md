@@ -24,11 +24,48 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
 #### Authentication
 
-Before using ExTinder, you must grab your Facebook oauth token. The easiest way is to follow this [link](https://www.facebook.com/dialog/oauth?client_id=464891386855067&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,public_profile,user_about_me,user_activities,user_birthday,user_education_history,user_friends,user_interests,user_likes,user_location,user_photos,user_relationship_details&response_type=token) and read the facebook token from url you get redirected to.
+##### Using Hound
 
-If you don't know how to find your Facebook ID you can find it [here](http://findmyfbid.com).
+Before using ExTinder, you must grab your Facebook OAuth token. ExTinder.FacebookAuthorizer makes use of [Hound](https://github.com/HashNuke/hound) which supports Selenium, PhantomJS, and ChromeDriver. PhantomJS still shares one cookiejar across sessions so I prefer Selenium.
 
-Now that you have your Facebook ID and Token you can get an oauth token from tinder:
+First install Selenium.
+
+```
+brew update
+brew install selenium-server-standalone
+```
+
+Run Selenium.
+
+```
+selenium-server -p 4444
+```
+
+Add your preferred [driver or browser to your config.exs.](https://github.com/HashNuke/hound/blob/master/notes/configuring-hound.md)
+
+```elixir
+config :hound, driver: "selenium"
+```
+
+You can now use ExTinder.FacebookAuthorizer to grab your Facebook OAuth token.
+
+```elixir
+facebook_token = ExTinder.FacebookAuthorizer.get_token("facebook@digitalgangster.com", "mypassword")
+```
+
+This can then be used with your facebook profile id to get the necessary Tinder OAuth token.
+
+```elixir
+token = ExTinder.authenticate("myfacebookid", facebook_token)
+```
+
+##### Manually
+
+If your not in the mood for additional dependencies you can also get your Facebook OAuth token manually. The easiest way is to follow this [link](https://www.facebook.com/dialog/oauth?client_id=464891386855067&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,public_profile,user_about_me,user_activities,user_birthday,user_education_history,user_friends,user_interests,user_likes,user_location,user_photos,user_relationship_details&response_type=token) and read the facebook token from url you get redirected to.
+
+If you don't know how to find your facebook id you can find it [here](http://findmyfbid.com).
+
+Now that you have your facebook id and token you can get an OAuth token from Tinder:
 
 ```elixir
 token = ExTinder.authenticate("myfacebookid", "myfacebooktoken")
