@@ -1,12 +1,12 @@
 [
   {
     "request": {
-      "body": "{\"last_activity_date\":\"2016-01-26T19:47:11.320Z\"}",
+      "body": "{\"last_activity_date\":\"2016-01-28T21:50:36.399Z\"}",
       "headers": {
-        "Authentication": "Token token=abac0ed9-dc21-4e6d-970d-6f09540c6ba2",
+        "Authentication": "Token token=fe2c5f9b-f1cd-4ef1-bf06-777129369b2f",
         "Content-Type": "application/json; charset=utf-8",
         "User-Agent": "Tinder/3.0.2 (iPhone; iOS 7.0.4; Scale/2.00)",
-        "X-Auth-Token": "abac0ed9-dc21-4e6d-970d-6f09540c6ba2"
+        "X-Auth-Token": "fe2c5f9b-f1cd-4ef1-bf06-777129369b2f"
       },
       "method": "post",
       "options": [],
@@ -17,7 +17,8 @@
       "body": "{\"matches\":[],\"blocks\":[],\"matchmaker\":[],\"lists\":[],\"deleted_lists\":[],\"liked_messages\":[],\"last_activity_date\":\"2016-01-24T02:41:24.825Z\"}",
       "headers": {
         "Content-Type": "application/json; charset=utf-8",
-        "Date": "Tue, 26 Jan 2016 19:47:11 GMT",
+        "Date": "Thu, 28 Jan 2016 21:50:36 GMT",
+        "Vary": "Accept-Encoding",
         "Content-Length": "140",
         "Connection": "keep-alive"
       },

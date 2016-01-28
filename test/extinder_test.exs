@@ -5,8 +5,8 @@ defmodule ExTinderTest do
   doctest ExTinder
 
   @facebook_id "629450774"
-  @facebook_token "CAAGm0PX4ZCpsBAND1aPoNFyeJq4BlY0eZAlnIWTKrQfTyT5JACJPjPO7XkwezUCLQR08Ok2erXcGhgbB0aNlHZBu6b0v3C8F2J33TPaqtDzOz4xmsPC6wic3uiXmZC4IimJuZAML1ZCZAkzN1QE0RhqyujNxVw226ebZCyKlmSphWBZAKmlMfO12yPVYY6fjfQMD2tvGs9ANTdAZDZD"
-  @good_token "abac0ed9-dc21-4e6d-970d-6f09540c6ba2"
+  @facebook_token "CAAGm0PX4ZCpsBAPm9BCZClKL9rq7nUAnTgyhZB9C9CSWLRB8ZBzxv3kofzKx0oNZCtWi9TP5wRlCGWASBPC4PpggJFhcsgqZBypiOhFgTReOCTMN1fUbjZCyaKt6LPeOXSoNrmHlmaiqb6finxc5ZB5UwbNL4x8YjdNU0jMXS26abqoIgJNVp3MF7i0LmX56ZBN4VKHWoA8JGPAZDZD"
+  @good_token "fe2c5f9b-f1cd-4ef1-bf06-777129369b2f"
 
   setup_all do
     HTTPoison.start
@@ -15,7 +15,7 @@ defmodule ExTinderTest do
   test "authenticate success returns an auth token" do
     use_cassette("authenticate") do
       token = ExTinder.authenticate(@facebook_id, @facebook_token)
-      assert token == "abac0ed9-dc21-4e6d-970d-6f09540c6ba2"
+      assert token == "fe2c5f9b-f1cd-4ef1-bf06-777129369b2f"
     end
   end
 
@@ -27,15 +27,15 @@ defmodule ExTinderTest do
     end
   end
 
-  test "fetch_updates using only token returns updates" do
-    use_cassette("fetch_updates\\1") do
-      response = @good_token |> ExTinder.fetch_updates
+  test "fetch_updates using token and :now returns updates" do
+    use_cassette("fetch_updates_now") do
+      response = @good_token |> ExTinder.fetch_updates(:now)
       assert response.matches
     end
   end
 
   test "fetch_updates using token and time returns updates" do
-    use_cassette("fetch_updates\\2") do
+    use_cassette("fetch_updates_time") do
       time = Date.local
       response = @good_token |> ExTinder.fetch_updates(time)
       assert response.matches

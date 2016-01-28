@@ -53,6 +53,22 @@ You can now use ExTinder.FacebookAuthorizer to grab your Facebook OAuth token.
 facebook_token = ExTinder.FacebookAuthorizer.get_token("facebook@digitalgangster.com", "mypassword")
 ```
 
+If necessary, the request to facebook can also be made through a proxy. You can create a proxy using ExTinder.Model.Proxy.create and pass it to the FacebookAuthorizer. The proxy constructor takes a type and proxy string along with an optional username and password. For more information check out the docs in lib/elixir/model.ex
+
+The proxy types supported are ["ftp", "http", "ssl", "socks", "all"]
+
+If you want to use proxies that require authorization they must be SOCKS.
+
+```elixir
+# Proxies not requiring authorization
+proxy = ExTinder.Model.Proxy.create("all", "200.54.110.196:80")
+facebook_token = ExTinder.FacebookAuthorizer.get_token("facebook@digitalgangster.com", "mypassword", proxy)
+
+# Socks proxies requiring authorization
+proxy = ExTinder.Model.Proxy.create("all", "200.54.110.196:80", "my_proxy_username", "my_proxy_password")
+facebook_token = ExTinder.FacebookAuthorizer.get_token("facebook@digitalgangster.com", "mypassword", proxy)
+```
+
 This can then be used with your facebook profile id to get the necessary Tinder OAuth token.
 
 ```elixir
@@ -95,6 +111,18 @@ Send a message to a match:
 ```elixir
 token
 |> ExTinder.send_message("userid", "dang girl is yr father a lobster?")
+```
+
+##### Proxies
+
+You can pass an ExTinder.Model.Proxy to any of the client functions and it will be used to make the request. There is more information on using proxies above in the Hound authentication section.
+
+```elixir
+proxy = ExTinder.Model.Proxy.create("all", "69.69.69.69:3128")
+token = ExTinder.authenticate("myfacebookid", "myfacebooktoken", proxy)
+
+token
+|> ExTinder.like("someuserid", proxy)
 ```
 
 #### Custom requests to the API
