@@ -9,3 +9,7 @@ end
 defmodule ExTinder.MatchNotFoundError do
   defexception [:code, :message]
 end
+
+defmodule ExTinder.ProxyError do
+  defexception [:message]
+end

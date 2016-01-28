@@ -31,8 +31,8 @@ defmodule ExTinder.Base do
     JSX.decode!(body, [{:labels, :atom}])
   end
 
-  def request(options) do
-    do_request(options)
+  def request(options, proxy \\ %{}) do
+    do_request(options, proxy)
     |> verify_response
   end
 
@@ -72,8 +72,8 @@ defmodule ExTinder.Base do
   ## Examples
       ExTinder.request({:get, "secret/route"})
   """
-  def do_request({:get, endpoint}) do
-    get(endpoint)
+  def do_request({:get, endpoint}, proxy) do
+    get(endpoint, default_headers, transform_proxy(proxy))
   end
 
   @doc """
@@ -82,8 +82,8 @@ defmodule ExTinder.Base do
   ## Examples
       ExTinder.request({:get, "secret/route", "secrettoken"})
   """
-  def do_request({:get, endpoint, token}) do
-    get(endpoint, auth_headers(token))
+  def do_request({:get, endpoint, token}, proxy) do
+    get(endpoint, auth_headers(token), transform_proxy(proxy))
   end
 
   @doc """
@@ -93,8 +93,8 @@ defmodule ExTinder.Base do
   ## Examples
       ExTinder.request({:post, "secret/route", %{csrf: "token"}})
   """
-  def do_request({:post, endpoint, body}) do
-    post(endpoint, JSX.encode!(body), default_headers)
+  def do_request({:post, endpoint, body}, proxy) do
+    post(endpoint, JSX.encode!(body), default_headers, transform_proxy(proxy))
   end
 
   @doc """
@@ -104,8 +104,8 @@ defmodule ExTinder.Base do
   ## Examples
       ExTinder.request({:post, "secret/route", %{my: "bod"}, "mytoken"})
   """
-  def do_request({:post, endpoint, body, token}) do
-    post(endpoint, JSX.encode!(body), auth_headers(token))
+  def do_request({:post, endpoint, body, token}, proxy) do
+    post(endpoint, JSX.encode!(body), auth_headers(token), transform_proxy(proxy))
   end
 
   # -------------- Default and Authenticated Headers -------------
@@ -124,5 +124,18 @@ defmodule ExTinder.Base do
       "Authentication" => "Token token=#{token}",
       "X-Auth-Token" => token
      }
+  end
+
+  defp transform_proxy(proxy) when proxy == %{} do
+    [proxy: nil]
+  end
+
+  defp transform_proxy(proxy) do
+    case proxy.socksUsername do
+      nil ->
+        [proxy: proxy.socksProxy]
+      _ ->
+        [proxy: proxy.socksProxy, proxy_auth: {proxy.socksUsername, proxy.socksPassword}]
+    end
   end
 end

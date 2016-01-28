@@ -30,6 +30,7 @@ defmodule ExTinder do
       token = ExTinder.authenticate("myfacebookid", "myfacebooktoken")
   """
   defdelegate authenticate(facebook_id, facebook_token), to: ExTinder.Client
+  defdelegate authenticate(facebook_id, facebook_token, proxy), to: ExTinder.Client
 
   @doc """
   GET pass/:id
@@ -42,31 +43,24 @@ defmodule ExTinder do
       |> ExTinder.dislike("someonesuserid")
   """
   defdelegate dislike(token, user_id), to: ExTinder.Client
+  defdelegate dislike(token, user_id, proxy), to: ExTinder.Client
 
   @doc """
   POST updates
 
-  Fetches new activity, setting last activity time to now.
-
-  ## Examples
-
-      token
-      |> ExTinder.fetch_updates
-  """
-  defdelegate fetch_updates(token), to: ExTinder.Client
-
-  @doc """
-  POST updates
-
-  Fetches new activity, allowing you to specify the last activity time.
+  Fetches new activity, allowing you to specify the last activity time. To use the current time send :now
 
   ## Examples
 
       {:ok, date} = "2015-06-24T04:50:34Z" |> Timex.DateFormat.parse("{ISOz}")
       token
       |> ExTinder.fetch_updates(date)
+
+      token
+      |> ExTinder.
   """
   defdelegate fetch_updates(token, time), to: ExTinder.Client
+  defdelegate fetch_updates(token, time, proxy), to: ExTinder.Client
 
   @doc """
   GET user/recs
@@ -79,6 +73,7 @@ defmodule ExTinder do
       |> ExTinder.get_nearby_users
   """
   defdelegate get_nearby_users(token), to: ExTinder.Client
+  defdelegate get_nearby_users(token, proxy), to: ExTinder.Client
 
   @doc """
   GET user/:id
@@ -91,6 +86,7 @@ defmodule ExTinder do
       |> ExTinder.info_for_user("someonesuserid")
   """
   defdelegate info_for_user(token, user_id), to: ExTinder.Client
+  defdelegate info_for_user(token, user_id, proxy), to: ExTinder.Client
 
   @doc """
   GET like/:id
@@ -103,6 +99,7 @@ defmodule ExTinder do
       |> ExTinder.like("someonesuserid")
   """
   defdelegate like(token, user_id), to: ExTinder.Client
+  defdelegate like(token, user_id, proxy), to: ExTinder.Client
 
   @doc """
   GET profile
@@ -115,6 +112,7 @@ defmodule ExTinder do
       |> ExTinder.profile
   """
   defdelegate profile(token), to: ExTinder.Client
+  defdelegate profile(token, proxy), to: ExTinder.Client
 
   @doc """
   POST user/matches/:id
@@ -127,6 +125,7 @@ defmodule ExTinder do
       |> ExTinder.send_message("userid", "dang girl, is yr father a lobster?")
   """
   defdelegate send_message(token, user_id, message), to: ExTinder.Client
+  defdelegate send_message(token, user_id, message, proxy), to: ExTinder.Client
 
   @doc """
   POST user/ping
@@ -139,4 +138,5 @@ defmodule ExTinder do
       |> ExTinder.update_location(39, -75)
   """
   defdelegate update_location(token, latitude, longitude), to: ExTinder.Client
+  defdelegate update_location(token, latitude, longitude, proxy), to: ExTinder.Client
 end
