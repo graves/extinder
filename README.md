@@ -113,6 +113,18 @@ token
 |> ExTinder.send_message("userid", "dang girl is yr father a lobster?")
 ```
 
+##### Proxies
+
+You can pass an ExTinder.Model.Proxy to any of the client functions and it will be used to make the request. There is more information on using proxies above in the Hound authentication section.
+
+```elixir
+proxy = ExTinder.Model.Proxy.create("all", "69.69.69.69:3128")
+token = ExTinder.authenticate("myfacebookid", "myfacebooktoken", proxy)
+
+token
+|> ExTinder.like("someuserid", proxy)
+```
+
 #### Custom requests to the API
 
 You can use ExTinder's request function to query the API for functionality not yet implemented. You can make both authenticated and unauthenticated GET and POST requests by passing the correct tuple to request.
