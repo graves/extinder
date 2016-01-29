@@ -122,10 +122,10 @@ defmodule ExTinder do
   ## Examples
 
       token
-      |> ExTinder.send_message("userid", "dang girl, is yr father a lobster?")
+      |> ExTinder.send_message("matchid", "dang girl, is yr father a lobster?")
   """
-  defdelegate send_message(token, user_id, message), to: ExTinder.Client
-  defdelegate send_message(token, user_id, message, proxy), to: ExTinder.Client
+  defdelegate send_message(token, match_id, message), to: ExTinder.Client
+  defdelegate send_message(token, match_id, message, proxy), to: ExTinder.Client
 
   @doc """
   POST user/ping
@@ -139,4 +139,6 @@ defmodule ExTinder do
   """
   defdelegate update_location(token, latitude, longitude), to: ExTinder.Client
   defdelegate update_location(token, latitude, longitude, proxy), to: ExTinder.Client
+
+  defdelegate request(options), to: ExTinder.Base
 end
