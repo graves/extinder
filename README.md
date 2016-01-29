@@ -11,7 +11,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add extinder to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:extinder, "~> 0.0.1"}]
+          [{:extinder, "~> 0.2.0"}]
         end
 
   2. Ensure extinder is started before your application:
@@ -103,7 +103,7 @@ Like a user (swipe right):
 
 ```elixir
 token
-|> ExTinder.like("someuserid")
+|> ExTinder.like("somematchid")
 ```
 
 Send a message to a match:
@@ -122,7 +122,7 @@ proxy = ExTinder.Model.Proxy.create("all", "69.69.69.69:3128")
 token = ExTinder.authenticate("myfacebookid", "myfacebooktoken", proxy)
 
 token
-|> ExTinder.like("someuserid", proxy)
+|> ExTinder.like("somematchid", proxy)
 ```
 
 #### Custom requests to the API
@@ -132,23 +132,23 @@ You can use ExTinder's request function to query the API for functionality not y
 Unauthenticated GET request:
 
 ```elixir
-ExTinder.Client.request({:get, "secret/route"})
+ExTinder.request({:get, "secret/route"})
 ```
 
 Authenticated GET request:
 
 ```elixir
-ExTinder.Client.request({:get, "secret/route", "myoauthtoken"})
+ExTinder.request({:get, "secret/route", "myoauthtoken"})
 ```
 
 Unauthenticated POST request:
 
 ```elixir
-ExTinder.Client.request({:post, "secret/route", %{my: body}})
+ExTinder.request({:post, "secret/route", %{my: body}})
 ```
 
 Authenticated POST request:
 
 ```elixir
-ExTinder.Client.request({:post, "secret/route", %{my: body}, "myoauthtoken"})
+ExTinder.request({:post, "secret/route", %{my: body}, "myoauthtoken"})
 ```
