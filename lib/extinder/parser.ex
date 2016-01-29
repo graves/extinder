@@ -13,7 +13,22 @@ defmodule ExTinder.Parser do
   end
 
   def parse_updates(body) do
-    struct(ExTinder.Model.Update, body)
+    update = struct(ExTinder.Model.Update, body)
+    parse_matches(update, update.matches)
+  end
+
+  def parse_matches(update, matches) do
+    matches = matches |> Enum.map(&wrap_match/1)
+    %{update | matches: matches}
+  end
+
+  def wrap_match(match) do
+    messages = match.messages |> Enum.map(&wrap_message/1)
+    struct(ExTinder.Model.Match, %{match | messages: messages})
+  end
+
+  def wrap_message(message) do
+    struct(ExTinder.Model.Message, message)
   end
 
   def parse_nearby_users(body) do

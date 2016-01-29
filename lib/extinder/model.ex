@@ -61,6 +61,30 @@ defmodule ExTinder.Model.AccessToken do
   @type t :: %__MODULE__{}
 end
 
+defmodule ExTinder.Model.Match do
+  @moduledoc """
+  Match object.
+  """
+  defstruct _id: nil, closed: nil, common_friend_count: nil,
+    common_like_count: nil, created_date: nil, dead: nil,
+    following: nil, following_moments: nil, id: nil,
+    is_super_like: nil, last_activity_date: nil, message_count: nil,
+    messages: nil, participants: nil, pending: nil, person: nil
+
+    @type t :: %__MODULE__{}
+end
+
+defmodule ExTinder.Model.Message do
+  @moduledoc """
+  Message object.
+  """
+  defstruct _id: nil, created_date: nil, from: nil,
+    match_id: nil, message: nil, sent_date: nil,
+    timestamp: nil, to: nil
+
+    @type t :: %__MODULE__{}
+end
+
 defmodule ExTinder.Model.Proxy do
   @moduledoc """
   Proxy object.

@@ -84,10 +84,10 @@ defmodule ExTinder.Client do
   @doc """
   Send a message to a user.
   """
-  def send_message(token, user_id, message, proxy \\ %{}) do
+  def send_message(token, match_id, message, proxy \\ %{}) do
     data = %{message: message}
 
-    request({:post, "user/matches/#{user_id}", data, token}, proxy)
+    request({:post, "user/matches/#{match_id}", data, token}, proxy)
     |> ExTinder.Parser.parse_simple_response
   end
 
