@@ -11,7 +11,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add extinder to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:extinder, "~> 0.2.0"}]
+          [{:extinder, "~> 0.3.0"}]
         end
 
   2. Ensure extinder is started before your application:
