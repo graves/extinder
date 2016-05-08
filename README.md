@@ -53,6 +53,12 @@ You can now use ExTinder.FacebookAuthorizer to grab your Facebook OAuth token.
 facebook_token = ExTinder.FacebookAuthorizer.get_token("facebook@digitalgangster.com", "mypassword")
 ```
 
+You can also use it to get your Facebook ID from your profile url.
+
+```elixir
+facebook_id = ExTinder.FacebookAuthorizer.get_id("http://facebook.com/datboi")
+```
+
 If necessary, the request to facebook can also be made through a proxy. You can create a proxy using ExTinder.Model.Proxy.create and pass it to the FacebookAuthorizer. The proxy constructor takes a type and proxy string along with an optional username and password. For more information check out the docs in lib/elixir/model.ex
 
 The proxy types supported are ["ftp", "http", "ssl", "socks", "all"]
