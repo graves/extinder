@@ -13,3 +13,7 @@ end
 defmodule ExTinder.ProxyError do
   defexception [:message]
 end
+
+defmodule ExTinder.FacebookTokenError do
+  defexception [:code, :message]
+end
