@@ -26,6 +26,17 @@ defmodule ExTinder.FacebookAuthorizer do
     extract_token_from_url(token_url)
   end
 
+  def get_id(url, proxy \\ %{}) do
+    Application.ensure_all_started(:hound)
+    Hound.start_session(%{proxy: proxy})
+
+    navigate_to(url)
+    id = Regex.run(~r/"entity_id":"([0-9]*)"/, page_source) |> Enum.at(1)
+
+    Hound.end_session(self)
+    id
+  end
+
   def extract_token_from_url(url) do
     token = Regex.run(~r/=(.*?)&/, url) |> Enum.at(1)
 
